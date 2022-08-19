@@ -32,7 +32,16 @@
             var socket = new io();
 
             var nome = prompt('Qual o seu nome?');
-            alert(`Bem vindo ao Danki Chat, ${nome}`);
+            socket.emit('new user', nome);
+
+            socket.on('new user', function (data) {
+                if (data.success) {
+                    alert(`Bem vindo ao Danki Chat, ${nome}`);
+                } else {
+                    alert(`Já existe um usuário com o nome "${nome}"`);
+                    window.location.href = '/';
+                }
+            });
 
             var messages = document.getElementById('messages');
             var form = document.getElementById('form');
