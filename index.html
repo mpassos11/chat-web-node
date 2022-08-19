@@ -19,8 +19,6 @@
             #messages { list-style-type: none; margin: 0; padding: 0; }
 
             #messages > li { padding: 0.5rem 1rem; }
-
-            #messages > li:nth-child(odd) { background: #efefef; }
         </style>
     </head>
     <body>
@@ -46,6 +44,15 @@
                     socket.emit('chat message', { msg: input.value, nome: nome });
                     input.value = '';
                 }
+            });
+
+            socket.on('chat message', function(message) {
+                console.log(message);
+                var item = document.createElement('li');
+                item.style.background = message.nome == nome ? 'gray' : 'white';
+                item.textContent = message.nome + ': ' + message.msg;
+                messages.appendChild(item);
+                window.scrollTo(0, document.body.scrollHeight);
             });
         </script>
     </body>
