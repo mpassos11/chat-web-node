@@ -33,12 +33,19 @@
         <script>
             var socket = new io();
 
-            socket.on('conectado', function(msg) {
-                console.log(msg);
-            });
+            var nome = prompt('Qual o seu nome?');
+            alert(`Bem vindo ao Danki Chat, ${nome}`);
 
-            socket.on('novo usuario', function(msg) {
-                console.log(msg);
+            var messages = document.getElementById('messages');
+            var form = document.getElementById('form');
+            var input = document.getElementById('input');
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (input.value) {
+                    socket.emit('chat message', { msg: input.value, nome: nome });
+                    input.value = '';
+                }
             });
         </script>
     </body>

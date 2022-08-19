@@ -7,12 +7,10 @@ app.get('/', function (req, res) {
 });
 
 io.on('connection', function (socket) {
-    console.log('Usuário conectado');
-
-    socket.on('disconnect', function () {
-        console.log('Usuário deconectado');
+    socket.on('chat message', function (obj) {
+        console.log(obj);
     });
-})
+});
 
 http.listen(3000, function() {
     console.log('Listening on port 3000');
